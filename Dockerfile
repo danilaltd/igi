@@ -12,7 +12,6 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
-    netcat-traditional \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
@@ -32,7 +31,7 @@ set -e
 
 # Wait for database to be ready
 echo "Waiting for database..."
-while ! nc -z db 5432; do
+while ! python manage.py check --database default 2>&1; do
     sleep 1
 done
 
