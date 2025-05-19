@@ -16,7 +16,9 @@ services:
         condition: service_healthy
     command: /app/entrypoint.sh
     networks:
-      - app-network
+      app-network:
+        aliases:
+          - web
 
   db:
     image: postgres:13
@@ -29,7 +31,9 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - app-network
+      app-network:
+        aliases:
+          - db
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -39,6 +43,10 @@ services:
 networks:
   app-network:
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
 
 volumes:
   postgres_data:

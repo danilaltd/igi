@@ -49,7 +49,18 @@ sleep 5
 
 # Load fixtures
 echo "Loading fixtures..."
-python load_data.py
+python manage.py loaddata myparking/fixtures/users.json
+python manage.py loaddata myparking/fixtures/news.json
+python manage.py loaddata myparking/fixtures/vacancies.json
+python manage.py loaddata myparking/fixtures/reviews.json
+python manage.py loaddata myparking/fixtures/faq.json
+python manage.py loaddata myparking/fixtures/company_info.json
+python manage.py loaddata myparking/fixtures/parking_spots.json
+python manage.py loaddata myparking/fixtures/cars.json
+python manage.py loaddata myparking/fixtures/service_categories.json
+python manage.py loaddata myparking/fixtures/services.json
+python manage.py loaddata myparking/fixtures/promocodes.json
+python manage.py loaddata myparking/fixtures/coupons.json
 
 # Start server
 echo "Starting server..."
