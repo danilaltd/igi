@@ -31,7 +31,7 @@ set -e
 
 # Wait for database to be ready
 echo "Waiting for database..."
-while ! python manage.py check --database default 2>&1; do
+while ! nc -z db 5432; do
     sleep 1
 done
 

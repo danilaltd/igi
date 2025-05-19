@@ -1,14 +1,14 @@
 services:
   web:
+    image: igi2024/myparking:latest
     build: .
     ports:
       - "80:80"
     environment:
-      - DATABASE_URL=postgresql://postgres:igidbigidc@db.yscotcmpwdcmpaqgojki.supabase.co:5432/postgres
       - DEBUG=1
       - SECRET_KEY=django-insecure-!9^4@k7w#z$1v8r2&b6%q3l0*e5n7s!p@u^x1z2c4g8h5j0k
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/parking_db
     volumes:
-      - .:/app
       - static_volume:/app/staticfiles
       - media_volume:/app/media
     depends_on:
