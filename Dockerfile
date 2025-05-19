@@ -24,5 +24,16 @@ COPY . .
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
-# Run migrations and start server
-CMD python manage.py migrate && python manage.py runserver 0.0.0.0:80
+# Create entrypoint script
+COPY <<EOF /app/entrypoint.sh
+#!/bin/bash
+python manage.py makemigrations --no-input
+python manage.py migrate --no-input
+python load_data.py
+python manage.py runserver 0.0.0.0:80
+EOF
+
+RUN chmod +x /app/entrypoint.sh
+
+# Run entrypoint script
+CMD ["/app/entrypoint.sh"]

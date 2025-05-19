@@ -11,6 +11,9 @@ services:
       - .:/app
       - static_volume:/app/staticfiles
       - media_volume:/app/media
+    depends_on:
+      - db
+    command: /app/entrypoint.sh
 
   db:
     image: postgres:13
@@ -20,6 +23,8 @@ services:
       - POSTGRES_DB=parking_db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
 
 volumes:
   postgres_data:
