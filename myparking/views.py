@@ -386,6 +386,7 @@ def free_parking(request, id):
         parking.user = None
         parking.date_of_rent = None
         parking.next_payment_date = None
+        parking.paid_months = 0
         parking.save()
         messages.success(request, 'Парковочное место успешно освобождено!')
     else:
