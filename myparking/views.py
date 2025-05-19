@@ -33,6 +33,8 @@ import pytz
 import decimal
 from io import BytesIO
 from django.core.paginator import Paginator
+from collections import Counter
+from datetime import date
 
 # Настройка логгеров
 logger = logging.getLogger('myparking')
@@ -570,6 +572,67 @@ def admin_reports(request):
         }
     }
     
+    # Calculate median and mode for debt
+    debts = list(User.objects.values_list('debt', flat=True))
+    if debts:
+        debts.sort()
+        n = len(debts)
+        if n % 2 == 0:
+            debt_stats['median_debt'] = (debts[n//2 - 1] + debts[n//2]) / 2
+        else:
+            debt_stats['median_debt'] = debts[n//2]
+        
+        # Calculate mode
+        debt_counter = Counter(debts)
+        mode_debt = debt_counter.most_common(1)
+        debt_stats['mode_debt'] = mode_debt[0][0] if mode_debt else 0
+    else:
+        debt_stats['median_debt'] = 0
+        debt_stats['mode_debt'] = 0
+
+    # Calculate median and mode for account balance
+    balances = list(User.objects.values_list('account_amount', flat=True))
+    if balances:
+        balances.sort()
+        n = len(balances)
+        if n % 2 == 0:
+            debt_stats['median_balance'] = (balances[n//2 - 1] + balances[n//2]) / 2
+        else:
+            debt_stats['median_balance'] = balances[n//2]
+        
+        # Calculate mode for balance
+        balance_counter = Counter(balances)
+        mode_balance = balance_counter.most_common(1)
+        debt_stats['mode_balance'] = mode_balance[0][0] if mode_balance else 0
+    else:
+        debt_stats['median_balance'] = 0
+        debt_stats['mode_balance'] = 0
+
+    # Calculate age statistics
+    today = date.today()
+    ages = []
+    for user in User.objects.filter(is_staff=False):  # Только клиенты, не сотрудники
+        if user.birth_date:
+            age = today.year - user.birth_date.year - ((today.month, today.day) < (user.birth_date.month, user.birth_date.day))
+            ages.append(age)
+    
+    if ages:
+        ages.sort()
+        n = len(ages)
+        age_stats = {
+            'min_age': min(ages),
+            'max_age': max(ages),
+            'avg_age': sum(ages) / n,
+            'median_age': (ages[n//2 - 1] + ages[n//2]) / 2 if n % 2 == 0 else ages[n//2]
+        }
+    else:
+        age_stats = {
+            'min_age': 0,
+            'max_age': 0,
+            'avg_age': 0,
+            'median_age': 0
+        }
+    
     # Получаем статистику парковки
     total_parking_spots = ParkingSpot.objects.count()
     busy_parking_spots = ParkingSpot.objects.filter(is_busy=True).count()
@@ -577,17 +640,40 @@ def admin_reports(request):
     occupancy_rate = (busy_parking_spots / total_parking_spots * 100) if total_parking_spots > 0 else 0
     
     # Создаем график распределения долгов
-    plt.figure(figsize=(10, 6))
-    plt.bar(['Максимальный', 'Средний', 'Минимальный'], 
-            [debt_stats['max_debt'], debt_stats['avg_debt'], debt_stats['min_debt']])
+    plt.figure(figsize=(12, 6))
+    plt.bar(['Максимальный', 'Средний', 'Медиана', 'Мода', 'Минимальный'], 
+            [debt_stats['max_debt'], debt_stats['avg_debt'], debt_stats['median_debt'], 
+             debt_stats['mode_debt'], debt_stats['min_debt']],
+            color=['#dc3545', '#ffc107', '#17a2b8', '#28a745', '#007bff'])
     plt.title('Распределение долгов')
     plt.ylabel('Сумма (BYN)')
+    plt.xticks(rotation=45)
     
     # Сохраняем график в base64
     buffer = BytesIO()
     plt.savefig(buffer, format='png')
     buffer.seek(0)
     debt_chart = base64.b64encode(buffer.getvalue()).decode()
+    plt.close()
+
+    # Создаем график распределения балансов
+    plt.figure(figsize=(12, 6))
+    plt.bar(['Максимальный', 'Средний', 'Медиана', 'Мода', 'Минимальный'], 
+            [debt_stats['account_amount_stats']['max'], 
+             debt_stats['account_amount_stats']['avg'],
+             debt_stats['median_balance'],
+             debt_stats['mode_balance'],
+             debt_stats['account_amount_stats']['min']],
+            color=['#28a745', '#ffc107', '#17a2b8', '#007bff', '#dc3545'])
+    plt.title('Распределение балансов')
+    plt.ylabel('Сумма (BYN)')
+    plt.xticks(rotation=45)
+    
+    # Сохраняем график в base64
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    balance_chart = base64.b64encode(buffer.getvalue()).decode()
     plt.close()
     
     # Создаем график загрузки парковки
@@ -610,6 +696,7 @@ def admin_reports(request):
     context = {
         'debt_stats': debt_stats,
         'debt_chart': debt_chart,
+        'balance_chart': balance_chart,
         'parking_chart': parking_chart,
         'total_parking_spots': total_parking_spots,
         'busy_parking_spots': busy_parking_spots,
@@ -629,6 +716,7 @@ def admin_reports(request):
         'start_date': start_date,
         'end_date': end_date,
         'car_mark': car_mark,
+        'age_stats': age_stats,
     }
     
     return render(request, 'myparking/admin_reports.html', context)

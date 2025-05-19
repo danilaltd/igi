@@ -217,6 +217,35 @@
                     <img src="data:image/png;base64,{{ debt_chart }}" class="img-fluid" alt="График долгов">
                 </div>
             </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h4>График распределения балансов</h4>
+                    <img src="data:image/png;base64,{{ balance_chart }}" class="img-fluid" alt="График балансов">
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h4>Статистика по возрасту клиентов</h4>
+                    <table class="table">
+                        <tr>
+                            <th>Минимальный возраст:</th>
+                            <td>{{ age_stats.min_age }} лет</td>
+                        </tr>
+                        <tr>
+                            <th>Максимальный возраст:</th>
+                            <td>{{ age_stats.max_age }} лет</td>
+                        </tr>
+                        <tr>
+                            <th>Средний возраст:</th>
+                            <td>{{ age_stats.avg_age|floatformat:1 }} лет</td>
+                        </tr>
+                        <tr>
+                            <th>Медианный возраст:</th>
+                            <td>{{ age_stats.median_age|floatformat:1 }} лет</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
