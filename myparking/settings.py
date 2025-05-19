@@ -12,8 +12,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# CSRF settings
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = "None"
 
 # Application definition
 INSTALLED_APPS = [
