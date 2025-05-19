@@ -12,9 +12,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_COOKIE_SECURE = False
-CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SAMESITE = "None"
+
+# CSRF settings
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost',
+    'http://127.0.0.1',
+    'http://0.0.0.0',
+    'http://localhost:80',
+    'http://127.0.0.1:80',
+    'http://0.0.0.0:80',
+    'https://igi-production.up.railway.app'
+]
 
 # Application definition
 INSTALLED_APPS = [
