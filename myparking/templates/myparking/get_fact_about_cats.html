@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+<title>Cat Fact</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h2 class="text-center">Random Cat Fact</h2>
+                </div>
+                <div class="card-body">
+                    {% if error_message %}
+                        <div class="alert alert-danger">
+                            {{ error_message }}
+                        </div>
+                    {% else %}
+                        <p class="text-center fs-4">{{ fact }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

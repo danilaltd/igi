@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+  {% block title %}<title>My Parking</title>{% endblock %}
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="{% static 'myparking/css/site_style.css' %}">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+  <style>
+    .messages {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .messages li {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+    .messages .success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+    .messages .error {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+    .messages .warning {
+        color: #856404;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+    }
+    .messages .info {
+        color: #0c5460;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+    }
+  </style>
+
+</head>
+
+<body>
+    <div>
+        <!--Main NavBar-->
+        <nav class="navbar navbar-expand-xl navbar-light bg-light">
+           <div class="container-fluid">
+              <a class="navbar-brand" href="{% url 'index'%}">Home</a>
+              <a class="navbar-brand" href="{% url 'parking_list'%}">Parking's</a>
+
+                {% if user.is_authenticated %}
+                    <label class="navbar-brand">User: {{ user.get_username }}</label>
+                    {% if user.profile.user_type == 'client' %}
+                        <label class="navbar-brand">Account: {{ user.account_amount }} BYN</label>
+                        <a class="navbar-brand" href="{% url 'client_dashboard' %}">Dashboard</a>
+                        <a class="navbar-brand" href="{% url 'my_cars' %}">My Cars</a>
+                        <a class="navbar-brand" href="{% url 'add_car' %}">Add Car</a>
+                        <a class="navbar-brand" href="{% url 'my_payments' %}">My Payments</a>
+                        <a class="navbar-brand" href="{% url 'account_management' %}">Account Management</a>
+                    {% elif user.profile.user_type == 'employee' %}
+                        <a class="navbar-brand" href="{% url 'employee_dashboard' %}">Dashboard</a>
+                        <a class="navbar-brand" href="{% url 'admin_reports' %}">Reports</a>
+                    {% endif %}
+                    {% if user.is_staff %}
+                        <a class="navbar-brand" href="{% url 'admin:index' %}">Admin Panel</a>
+                    {% endif %}
+                    <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="navbar-brand" href="{% url 'get_ip' %}">Server IP</a>
+                    <a class="navbar-brand" href="{% url 'get_fact_about_cats' %}">Fact about cats</a>
+                    <a class="navbar-brand" href="{% url 'login' %}">Login</a>
+                    <a class="navbar-brand" href="{% url 'register' %}">Registration</a>
+                {% endif %}
+           </div>
+        </nav>
+  </div>
+
+  <div class="my-main-container">
+          <div class="row">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+          </div>
+  </div>
+
+</body>
+</html>

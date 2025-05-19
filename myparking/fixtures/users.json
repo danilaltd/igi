@@ -1,0 +1,359 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$VQ7Wfaua1uywJPUdOH1hAE$KWO6lfgH6Rwq6yf4ETPqqse/lT1DLWjLppc0sIOdPcA=",
+            "last_login": null,
+            "is_superuser": true,
+            "username": "admin",
+            "first_name": "Admin",
+            "last_name": "User",
+            "email": "admin@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1990-01-01"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$Weqsa9zA2309jBrwMYA3Jj$qXGhKGhConVJA5nxFplPML9u1PPRc2/oWLqh/sqZijY=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "user1",
+            "first_name": "Client",
+            "last_name": "1",
+            "email": "user1@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1991-02-02"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$Tl7ndNcm5hgUtul33Tp1xe$gCeHIqPQhUEcLXTTQKV6GsET8PR+UGk5MhgLJcobXa8=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "user2",
+            "first_name": "Client",
+            "last_name": "2",
+            "email": "user2@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1992-03-03"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$KGzvzzp8cEHCIAVLFgK3gK$ooCtoej4xsi7siH+8sRgZ5OYWqwSrHfdlpN4QxQnD+c=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "user3",
+            "first_name": "Client",
+            "last_name": "3",
+            "email": "user3@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1993-04-04"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 5,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$a5kh6nJU8KssHCg47jxVeZ$mw8yqfpfHwOOuHDaUUr/9u1qHvxsrNlk4Iku+ecdsLA=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "user4",
+            "first_name": "Client",
+            "last_name": "4",
+            "email": "user4@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1994-05-05"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 6,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$aYvpUSra574VkrARzda0nf$Z/iPVAxjS+UAXefqJxjZdISYfko2Odk7y/b6hY5gE7M=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "user5",
+            "first_name": "Client",
+            "last_name": "5",
+            "email": "user5@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1995-06-06"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 7,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$uUPeWftevdIoOZpj9Mtbip$ze3uh3bL127V7AdkOGTU7J92uLNtce/RW5pMuk7PStw=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "user6",
+            "first_name": "Client",
+            "last_name": "6",
+            "email": "user6@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1996-07-07"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 8,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$GwjafDRo5kV3vs1s2ONAOy$E+B5Y3N4zi2uWvNrOyk3/sw/ftSoZoQ0MQZ/nStC5lY=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "user7",
+            "first_name": "Client",
+            "last_name": "7",
+            "email": "user7@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1997-08-08"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 9,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$NrPr1LnwCKbfqH7fc7pWpN$zPa1X0SKvrnUeGwunKsIDy/2bVbc/yUA12ZZWZulrG4=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "user8",
+            "first_name": "Client",
+            "last_name": "8",
+            "email": "user8@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1998-09-09"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 10,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$JfmOfIY06rJagil93lFlfm$ZELO6GklXZfD7vRKbDcvMs7d4fFSHOWy3fTGJjwi+jE=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "user9",
+            "first_name": "Client",
+            "last_name": "9",
+            "email": "user9@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1999-10-10"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 11,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$OlpwXc6gCMS2N4fPKaDyeI$PZZbSvr77Iku0oNtSia6Sgjim/pfQZHysW6qDz9EqOo=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "user10",
+            "first_name": "Client",
+            "last_name": "10",
+            "email": "user10@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "2000-11-11"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 12,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$1hkODxKSPIMGTXLIUJJpa8$LHRtnZjAlmMN0+X3S5YU4awH95EwzIi72INZ2+uN0Wk=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "staff1",
+            "first_name": "Staff",
+            "last_name": "1",
+            "email": "staff1@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1985-01-01"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 13,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$eK4kpqe6fBPLI2kDPRlicn$EtUbNwqNwFdchP/bgi6LPTcjmehTLxUIFshc8NaqLEw=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "staff2",
+            "first_name": "Staff",
+            "last_name": "2",
+            "email": "staff2@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1986-02-02"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 14,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$K7lbYGerxz8g2DF9zybuld$h15jdEUqJwudtaX61aYT5fdpnf378xxzqx47xncQQos=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "staff3",
+            "first_name": "Staff",
+            "last_name": "3",
+            "email": "staff3@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1987-03-03"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 15,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$hh0WjYjPjmzZCI8q7bjRvx$ign/eM4JgQ5cmdymJY1R78b3QGlaK5swre3wIQyTBWk=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "staff4",
+            "first_name": "Staff",
+            "last_name": "4",
+            "email": "staff4@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1988-04-04"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 16,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$j3K45NftmfXGCs6kirwq7p$m4niZsrt3CvdyDNZT4Ao0sNRAGsRNg2b5ZTMHr79TAw=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "staff5",
+            "first_name": "Staff",
+            "last_name": "5",
+            "email": "staff5@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1989-05-05"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 17,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$n5AlXVQhqbin6mjdzcPAbU$b1E9ad3WQepENj9ZZt2M0FRw9gU+OkwzVfGy/bpJmH8=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "staff6",
+            "first_name": "Staff",
+            "last_name": "6",
+            "email": "staff6@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1990-06-06"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 18,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$WaLNDVAaHWrlVdVWY5LfxD$PvlzCxfE63woM00zBUIb4ImFiRBZuPVfset9PzVl1wU=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "staff7",
+            "first_name": "Staff",
+            "last_name": "7",
+            "email": "staff7@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1991-07-07"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 19,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$3kb1JKIvIgW7qkNI0LEXpM$buGLrx5g+Byj0NeukH5iQ5yr6XCHvGOfH8b9l2sX4p8=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "staff8",
+            "first_name": "Staff",
+            "last_name": "8",
+            "email": "staff8@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1992-08-08"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 20,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$rZKHEOr9CokWiDzxIfeghG$IWGrZ9W9cfHzmE8oZcfQfV1Yn+eyWR8yPZv52H4IBVI=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "staff9",
+            "first_name": "Staff",
+            "last_name": "9",
+            "email": "staff9@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1993-09-09"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 21,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$c53dU9LmCKIrSHWBIaxPaE$Nq/brzrA3HUaxb10Fs3dX35Kg/aCPNvnd0WfKD0igDg=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "staff10",
+            "first_name": "Staff",
+            "last_name": "10",
+            "email": "staff10@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2025-01-01T00:00:00Z",
+            "birth_date": "1994-10-10"
+        }
+    }
+]

@@ -1,0 +1,13 @@
+.my-main-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square-div{
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 30px;
+    padding: 30px 40px 30px 40px;
+    background: linear-gradient(to bottom right, #ffe259, #ffa751);
+}

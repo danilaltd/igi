@@ -1,0 +1,434 @@
+{% extends "myparking/base_generic.html" %}
+
+{% block title %}
+<title>Отчеты администратора</title>
+{% endblock %}
+
+{% block extra_head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Отчеты администратора</h1>
+
+    <!-- Фильтры для периода и марки -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Фильтры</h5>
+            <form method="get" class="row g-3">
+                <div class="col-md-3">
+                    <label for="start_date" class="form-label">Начальная дата</label>
+                    <input type="date" class="form-control" id="start_date" name="start_date" value="{{ start_date|date:'Y-m-d' }}">
+                </div>
+                <div class="col-md-3">
+                    <label for="end_date" class="form-label">Конечная дата</label>
+                    <input type="date" class="form-control" id="end_date" name="end_date" value="{{ end_date|date:'Y-m-d' }}">
+                </div>
+                <div class="col-md-3">
+                    <label for="car_mark" class="form-label">Марка автомобиля</label>
+                    <input type="text" class="form-control" id="car_mark" name="car_mark" value="{{ car_mark|default:'' }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">&nbsp;</label>
+                    <button type="submit" class="btn btn-primary w-100">Применить фильтры</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Новые карточки -->
+    <div class="row mb-4">
+        <!-- Клиент с максимальным долгом -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Клиент с максимальным долгом</h3>
+                </div>
+                <div class="card-body">
+                    {% if client_with_max_debt %}
+                        <p><strong>Клиент:</strong> {{ client_with_max_debt.username }}</p>
+                        <p><strong>Email:</strong> {{ client_with_max_debt.email }}</p>
+                        <p><strong>Сумма долга:</strong> {{ client_with_max_debt.debt|floatformat:2 }} BYN</p>
+                        {% if last_payment_date %}
+                            <p><strong>Последний платеж:</strong> {{ last_payment_date|date:"d.m.Y" }}</p>
+                        {% else %}
+                            <p><strong>Последний платеж:</strong> Нет данных</p>
+                        {% endif %}
+                    {% else %}
+                        <p>Нет данных о клиентах с долгами</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Автомобиль с минимальным долгом за период -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Автомобиль с минимальным долгом за период</h3>
+                </div>
+                <div class="card-body">
+                    {% if car_with_min_debt and start_date and end_date %}
+                        <p><strong>Марка:</strong> {{ car_with_min_debt.mark }}</p>
+                        <p><strong>Модель:</strong> {{ car_with_min_debt.model }}</p>
+                        <p><strong>Номер:</strong> {{ car_with_min_debt.license_plate }}</p>
+                        <p><strong>Сумма долга:</strong> {{ min_debt|floatformat:2 }} BYN</p>
+                        <p><strong>Период:</strong> {{ start_date|date:"d.m.Y" }} - {{ end_date|date:"d.m.Y" }}</p>
+                    {% else %}
+                        <p>Выберите период для просмотра данных</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <!-- Общий долг за период -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Общий долг за период</h3>
+                </div>
+                <div class="card-body">
+                    {% if start_date and end_date %}
+                        <p><strong>Сумма долга:</strong> {{ total_debt|floatformat:2 }} BYN</p>
+                        <p><strong>Период:</strong> {{ start_date|date:"d.m.Y" }} - {{ end_date|date:"d.m.Y" }}</p>
+                    {% else %}
+                        <p>Выберите период для просмотра данных</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Автомобили по выбранной марке -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Автомобили по марке</h3>
+                </div>
+                <div class="card-body">
+                    {% if car_mark and car_mark != 'None' %}
+                        {% if cars_by_selected_mark %}
+                            {% for car in cars_by_selected_mark %}
+                                <div class="mb-3">
+                                    <p><strong>Модель:</strong> {{ car.model }}</p>
+                                    <p><strong>Номер:</strong> {{ car.license_plate }}</p>
+                                    <p><strong>Владельцы:</strong></p>
+                                    <ul>
+                                        {% for owner in car.owners.all %}
+                                            <li>{{ owner.username }} ({{ owner.email }})</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>Автомобили марки "{{ car_mark }}" не найдены</p>
+                        {% endif %}
+                    {% else %}
+                        <p>Выберите марку автомобиля для просмотра данных</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Статистика по долгам и счетам -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Статистика по долгам и счетам</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Статистика по долгам -->
+                <div class="col-md-6">
+                    <h4>Статистика по долгам</h4>
+                    <table class="table">
+                        <tr>
+                            <th>Максимальный долг:</th>
+                            <td>{{ debt_stats.max_debt|floatformat:2 }} BYN</td>
+                        </tr>
+                        <tr>
+                            <th>Минимальный долг:</th>
+                            <td>{{ debt_stats.min_debt|floatformat:2 }} BYN</td>
+                        </tr>
+                        <tr>
+                            <th>Средний долг:</th>
+                            <td>{{ debt_stats.avg_debt|floatformat:2 }} BYN</td>
+                        </tr>
+                        <tr>
+                            <th>Общий долг:</th>
+                            <td>{{ debt_stats.total_debt|floatformat:2 }} BYN</td>
+                        </tr>
+                    </table>
+                    <h5>Распределение клиентов по долгам</h5>
+                    <table class="table">
+                        <tr>
+                            <th>С положительным долгом:</th>
+                            <td>{{ debt_stats.positive_debt_clients }}</td>
+                        </tr>
+                        <tr>
+                            <th>С отрицательным долгом (предоплата):</th>
+                            <td>{{ debt_stats.negative_debt_clients }}</td>
+                        </tr>
+                        <tr>
+                            <th>С нулевым долгом:</th>
+                            <td>{{ debt_stats.zero_debt_clients }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- Статистика по счетам -->
+                <div class="col-md-6">
+                    <h4>Статистика по счетам</h4>
+                    <table class="table">
+                        <tr>
+                            <th>Максимальный баланс:</th>
+                            <td>{{ debt_stats.account_amount_stats.max|floatformat:2 }} BYN</td>
+                        </tr>
+                        <tr>
+                            <th>Минимальный баланс:</th>
+                            <td>{{ debt_stats.account_amount_stats.min|floatformat:2 }} BYN</td>
+                        </tr>
+                        <tr>
+                            <th>Средний баланс:</th>
+                            <td>{{ debt_stats.account_amount_stats.avg|floatformat:2 }} BYN</td>
+                        </tr>
+                        <tr>
+                            <th>Общий баланс:</th>
+                            <td>{{ debt_stats.account_amount_stats.total|floatformat:2 }} BYN</td>
+                        </tr>
+                    </table>
+                    <h5>Распределение клиентов по балансу</h5>
+                    <table class="table">
+                        <tr>
+                            <th>С положительным балансом:</th>
+                            <td>{{ debt_stats.account_amount_stats.positive }}</td>
+                        </tr>
+                        <tr>
+                            <th>С нулевым балансом:</th>
+                            <td>{{ debt_stats.account_amount_stats.zero }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h4>График распределения долгов</h4>
+                    <img src="data:image/png;base64,{{ debt_chart }}" class="img-fluid" alt="График долгов">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Остальные карточки -->
+    <div class="row">
+        <!-- Автомобили с несколькими владельцами -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Автомобили с несколькими владельцами</h3>
+                </div>
+                <div class="card-body">
+                    {% if cars_with_multiple_owners %}
+                        {% for car_info in cars_with_multiple_owners %}
+                            <div class="mb-3">
+                                <h5>{{ car_info.car.mark }} {{ car_info.car.model }} ({{ car_info.car.license_plate }})</h5>
+                                <p>Владельцы:</p>
+                                <ul>
+                                    {% for owner in car_info.owners %}
+                                        <li>{{ owner.username }} ({{ owner.email }})</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>Нет автомобилей с несколькими владельцами</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Клиенты по балансу -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Клиенты по балансу</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Клиент</th>
+                                <th>Баланс</th>
+                                <th>Долг</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users_by_balance %}
+                                <tr>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.account_amount|floatformat:2 }} BYN</td>
+                                    <td>{{ user.debt|floatformat:2 }} BYN</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Статистика парковки -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Статистика парковки</h3>
+                </div>
+                <div class="card-body">
+                    <p>Всего мест: {{ total_parking_spots }}</p>
+                    <p>Занято: {{ busy_parking_spots }}</p>
+                    <p>Свободно: {{ free_parking_spots }}</p>
+                    <p>Загрузка: {{ occupancy_rate }}%</p>
+                    <img src="data:image/png;base64,{{ parking_chart }}" class="img-fluid" alt="График загрузки парковки">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // График загрузки парковки
+    const parkingCtx = document.getElementById('parkingOccupancyChart').getContext('2d');
+    new Chart(parkingCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Занято', 'Свободно'],
+            datasets: [{
+                data: [{{ busy_parking_spots }}, {{ free_parking_spots }}],
+                backgroundColor: ['#dc3545', '#28a745']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'Загрузка парковки'
+                }
+            }
+        }
+    });
+
+    // График распределения долгов
+    const debtCtx = document.getElementById('debtDistributionChart').getContext('2d');
+    new Chart(debtCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Максимальный долг', 'Средний долг', 'Минимальный долг'],
+            datasets: [{
+                label: 'Сумма долга (BYN)',
+                data: [
+                    {{ client_with_max_debt.debt|default:"0" }},
+                    {{ total_debt|default:"0" }},
+                    {{ min_debt|default:"0" }}
+                ],
+                backgroundColor: ['#dc3545', '#ffc107', '#28a745']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Распределение долгов'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // График активности клиентов
+    const clientCtx = document.getElementById('clientActivityChart').getContext('2d');
+    new Chart(clientCtx, {
+        type: 'line',
+        data: {
+            labels: ['Всего клиентов', 'Активных клиентов', 'Среднее кол-во машин', 'Среднее кол-во парковок'],
+            datasets: [{
+                label: 'Показатели',
+                data: [
+                    {{ total_clients|default:"0" }},
+                    {{ active_clients|default:"0" }},
+                    {{ average_cars_per_client|default:"0" }},
+                    {{ average_parkings_per_client|default:"0" }}
+                ],
+                borderColor: '#17a2b8',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Активность клиентов'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // График популярности марок автомобилей
+    const carMarksCtx = document.getElementById('carMarksChart').getContext('2d');
+    new Chart(carMarksCtx, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                {% for mark in car_marks_data %}
+                    '{{ mark.mark }}',
+                {% endfor %}
+            ],
+            datasets: [{
+                data: [
+                    {% for mark in car_marks_data %}
+                        {{ mark.count }},
+                    {% endfor %}
+                ],
+                backgroundColor: [
+                    '#dc3545', '#28a745', '#ffc107', '#17a2b8', '#6c757d',
+                    '#007bff', '#6610f2', '#6f42c1', '#e83e8c', '#fd7e14'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right'
+                },
+                title: {
+                    display: true,
+                    text: 'Популярность марок автомобилей'
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %} 

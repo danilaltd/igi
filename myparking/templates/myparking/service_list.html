@@ -1,0 +1,136 @@
+{% extends 'myparking/base_generic.html' %}
+
+{% block title %}Услуги - AutoCar{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Фильтры -->
+        <div class="col-md-3">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Фильтры</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get">
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Категория</label>
+                            <select name="category" id="category" class="form-select">
+                                <option value="">Все категории</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"i" %}selected{% endif %}>
+                                        {{ category.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="min_price" class="form-label">Минимальная цена</label>
+                            <input type="number" name="min_price" id="min_price" class="form-control" 
+                                   value="{{ request.GET.min_price }}" min="0">
+                        </div>
+                        <div class="mb-3">
+                            <label for="max_price" class="form-label">Максимальная цена</label>
+                            <input type="number" name="max_price" id="max_price" class="form-control" 
+                                   value="{{ request.GET.max_price }}" min="0">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Применить</button>
+                        {% if request.GET %}
+                            <a href="{% url 'service-list' %}" class="btn btn-outline-secondary w-100 mt-2">Сбросить</a>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+
+            <!-- Промокоды и купоны -->
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Промокоды и купоны</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'apply-promo-code' %}" class="mb-3">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="text" name="code" class="form-control" placeholder="Введите промокод">
+                            <button type="submit" class="btn btn-outline-primary">Применить</button>
+                        </div>
+                    </form>
+                    <form method="post" action="{% url 'apply-coupon' %}">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="text" name="code" class="form-control" placeholder="Введите купон">
+                            <button type="submit" class="btn btn-outline-primary">Применить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Список услуг -->
+        <div class="col-md-9">
+            <div class="row">
+                {% for service in services %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ service.name }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ service.category.name }}</h6>
+                                <p class="card-text">{{ service.description|truncatewords:30 }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 mb-0">{{ service.price }} BYN</span>
+                                    <a href="{% url 'service-detail' service.pk %}" class="btn btn-primary">
+                                        Подробнее
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> Услуги не найдены.
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Пагинация -->
+            {% if is_paginated %}
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">
+                                        {{ num }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,57 @@
+[
+    {
+        "model": "myparking.car",
+        "pk": 1,
+        "fields": {
+            "mark": "Toyota",
+            "model": "Camry",
+            "license_plate": "A123BC",
+            "owners": [2],
+            "parking_spot": null
+        }
+    },
+    {
+        "model": "myparking.car",
+        "pk": 2,
+        "fields": {
+            "mark": "Honda",
+            "model": "Civic",
+            "license_plate": "B456DE",
+            "owners": [2],
+            "parking_spot": null
+        }
+    },
+    {
+        "model": "myparking.car",
+        "pk": 3,
+        "fields": {
+            "mark": "BMW",
+            "model": "X5",
+            "license_plate": "C789FG",
+            "owners": [2],
+            "parking_spot": null
+        }
+    },
+    {
+        "model": "myparking.car",
+        "pk": 4,
+        "fields": {
+            "mark": "Mercedes-Benz",
+            "model": "C-Class",
+            "license_plate": "D012EF",
+            "owners": [3],
+            "parking_spot": null
+        }
+    },
+    {
+        "model": "myparking.car",
+        "pk": 5,
+        "fields": {
+            "mark": "Audi",
+            "model": "A6",
+            "license_plate": "E345GH",
+            "owners": [3],
+            "parking_spot": null
+        }
+    }
+] 

@@ -1,0 +1,22 @@
+{% extends "base_generic.html"%}
+
+{% block title%}
+<title>Add Car</title>
+{% endblock %}
+
+{% block content%}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-success" type="submit">Добавить</button>
+      <a href="{% url 'my_cars' %}" class="btn btn-danger">Отменить</a>
+    </form>
+{% endblock %}

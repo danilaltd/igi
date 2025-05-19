@@ -1,0 +1,131 @@
+{% extends "myparking/base_generic.html" %}
+{% load tz %}
+
+{% block title %}Главная - AutoCar{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            {% if latest_news %}
+                <div class="card shadow-sm mb-4">
+                    {% if latest_news.image %}
+                        <img src="{{ latest_news.image.url }}" class="card-img-top" alt="{{ latest_news.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h2 class="card-title">{{ latest_news.title }}</h2>
+                        <p class="card-text text-muted">
+                            <small>Опубликовано: {{ latest_news.published_at|date:"d.m.Y H:i" }}</small>
+                        </p>
+                        <p class="card-text">{{ latest_news.summary }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{% url 'news-detail' latest_news.pk %}" class="btn btn-primary">
+                                Читать далее
+                            </a>
+                            <a href="{% url 'news-list' %}" class="btn btn-outline-secondary">
+                                Все новости
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-info mb-4">
+                    <i class="fas fa-info-circle"></i> Новости пока не добавлены.
+                </div>
+            {% endif %}
+
+            <!-- Информация о времени -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Информация о времени</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Часовой пояс пользователя:</strong> <span id="userTimezone"></span></p>
+                    <p><strong>Текущая дата (локальное время):</strong> <span id="currentDateLocal"></span></p>
+                    <p><strong>Текущая дата (UTC):</strong> {{ current_date_utc|date:"d/m/Y H:i:s" }}</p>
+                    <p><strong>Дата последнего обновления данных (локальное время):</strong> <span id="lastUpdateLocal"></span></p>
+                    <p><strong>Дата последнего обновления данных (UTC):</strong> {{ last_update_utc|date:"d/m/Y H:i:s" }}</p>
+                </div>
+            </div>
+
+            <!-- Календарь -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Календарь</h5>
+                </div>
+                <div class="card-body">
+                    <pre class="calendar-text">{{ calendar_text }}</pre>
+                </div>
+            </div>
+
+            <!-- API Features Section -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">
+                        <i class="fas fa-plug me-2"></i>API Функции
+                    </h3>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-network-wired me-2 text-primary"></i>
+                                        Проверка IP
+                                    </h5>
+                                    <p class="card-text">Узнайте ваш текущий IP-адрес</p>
+                                    <a href="{% url 'get_ip' %}" class="btn btn-outline-primary">
+                                        <i class="fas fa-arrow-right me-1"></i>
+                                        Проверить
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-cat me-2 text-primary"></i>
+                                        Факты о котах
+                                    </h5>
+                                    <p class="card-text">Узнайте интересный факт о котах</p>
+                                    <a href="{% url 'get_fact_about_cats' %}" class="btn btn-outline-primary">
+                                        <i class="fas fa-arrow-right me-1"></i>
+                                        Узнать
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Получаем часовой пояс пользователя
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    document.getElementById('userTimezone').textContent = timezone;
+
+    // Форматируем даты в локальном времени
+    const formatDate = (date) => {
+        return new Date(date).toLocaleString('ru-RU', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+    };
+
+    // Обновляем текущую дату
+    document.getElementById('currentDateLocal').textContent = formatDate(new Date());
+    
+    // Преобразуем UTC дату последнего обновления в локальное время
+    const lastUpdateUTC = new Date('{{ last_update_utc|date:"Y-m-d H:i:s" }}Z'); // Добавляем Z для указания UTC
+    document.getElementById('lastUpdateLocal').textContent = formatDate(lastUpdateUTC);
+});
+</script>
+{% endblock %} 

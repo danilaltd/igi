@@ -1,0 +1,90 @@
+{% extends 'myparking/base_generic.html' %}
+
+{% block title %}О компании{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    {% if company_info %}
+                        {% if company_info.logo %}
+                            <div class="text-center mb-4">
+                                <img src="{{ company_info.logo.url }}" alt="{{ company_info.name }}" class="img-fluid" style="max-height: 200px;">
+                            </div>
+                        {% endif %}
+                        
+                        <h2 class="card-title mb-4 text-center">{{ company_info.name }}</h2>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-4">
+                                    <h3 class="h4 text-primary">История компании</h3>
+                                    <p class="text-muted">{{ company_info.history|linebreaks }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="mb-4">
+                                    <h3 class="h4 text-primary">Реквизиты</h3>
+                                    <p class="text-muted">{{ company_info.requisites|linebreaks }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h3 class="h4 text-primary mb-3">Контактная информация</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card bg-light mb-3">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Email поддержки</h5>
+                                                <p class="card-text">
+                                                    <a href="mailto:{{ contact_email }}" class="text-decoration-none">
+                                                        <i class="fas fa-envelope me-2"></i>{{ contact_email }}
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card bg-light mb-3">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Телефон для связи</h5>
+                                                <p class="card-text">
+                                                    <a href="tel:{{ contact_phone|cut:" " }}" class="text-decoration-none">
+                                                        <i class="fas fa-phone me-2"></i>{{ contact_phone }}
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h3 class="h4 text-primary mb-3">Время работы</h3>
+                                        <p class="mb-1"><strong>Пн-Пт:</strong> {{ working_hours_weekdays }}</p>
+                                        <p class="mb-1"><strong>Сб-Вс:</strong> {{ working_hours_weekends }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning text-center">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Информация о компании отсутствует.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

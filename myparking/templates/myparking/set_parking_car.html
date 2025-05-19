@@ -1,0 +1,17 @@
+{% extends "myparking/base_generic.html" %}
+
+{% block title %}
+<title>Поставить машину на парковку</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Поставить машину на парковку #{{ parking.number }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Поставить</button>
+        <a href="{% url 'my_parking_list' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %} 

@@ -1,0 +1,16 @@
+{% extends "base_generic.html"%}
+
+{% block title%}
+<title>Parking Rental</title>
+{% endblock %}
+
+{% block content%}
+<h1>Аренда парковочого места номер {{parking.number}}.</h1>
+<label>Стоимость: {{ parking.price}}$/месяц.</label>
+<form method="post">
+  {% csrf_token %}
+<!--  <a href="{% url 'rent_parking' parking.id %}" class="btn btn-success">Арендовать</a>-->
+  <button class="btn btn-success" type="submit">Арендовать</button>
+  <a href="{% url 'parking_list' %}" class="btn btn-danger">Отменить</a>
+</form>
+{% endblock %}

@@ -1,0 +1,132 @@
+[
+    {
+        "model": "myparking.vacancy",
+        "pk": 1,
+        "fields": {
+            "title": "Parking Administrator",
+            "description": "Parking management, customer communication, payment control.",
+            "requirements": "Customer service experience, computer skills.",
+            "salary": "from 3000",
+            "is_active": true,
+            "created_at": "2025-01-01T09:00:00Z",
+            "updated_at": "2025-01-01T09:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.vacancy",
+        "pk": 2,
+        "fields": {
+            "title": "Security Guard",
+            "description": "Ensuring parking security, controlling entry/exit.",
+            "requirements": "Security guard experience, license required.",
+            "salary": "from 3500",
+            "is_active": true,
+            "created_at": "2025-01-01T09:00:00Z",
+            "updated_at": "2025-01-01T09:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.vacancy",
+        "pk": 3,
+        "fields": {
+            "title": "Sales Manager",
+            "description": "Customer acquisition, contract management.",
+            "requirements": "Sales experience, communication skills.",
+            "salary": "from 4000",
+            "is_active": true,
+            "created_at": "2025-01-01T09:00:00Z",
+            "updated_at": "2025-01-01T09:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.vacancy",
+        "pk": 4,
+        "fields": {
+            "title": "Car Wash Operator",
+            "description": "Car wash operator needed. Responsibilities: car washing, wash area cleaning. Requirements: 1 year experience.",
+            "requirements": "1 year experience",
+            "salary": "from 3000",
+            "is_active": true,
+            "created_at": "2025-01-01T09:00:00Z",
+            "updated_at": "2025-01-01T09:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.vacancy",
+        "pk": 5,
+        "fields": {
+            "title": "Auto Mechanic",
+            "description": "Auto mechanic needed. Responsibilities: vehicle diagnostics and repair. Requirements: 3 years experience, knowledge of modern vehicles.",
+            "requirements": "3 years experience, knowledge of modern vehicles",
+            "salary": "from 4500",
+            "is_active": true,
+            "created_at": "2025-01-01T09:00:00Z",
+            "updated_at": "2025-01-01T09:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.vacancy",
+        "pk": 6,
+        "fields": {
+            "title": "Electrician",
+            "description": "Electrician needed. Responsibilities: parking electrical equipment maintenance. Requirements: work permit, 2 years experience.",
+            "requirements": "Work permit, 2 years experience",
+            "salary": "from 4000",
+            "is_active": true,
+            "created_at": "2025-01-01T09:00:00Z",
+            "updated_at": "2025-01-01T09:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.vacancy",
+        "pk": 7,
+        "fields": {
+            "title": "Cleaner",
+            "description": "Territory cleaner needed. Responsibilities: parking area cleaning. Requirements: 1 year experience.",
+            "requirements": "1 year experience",
+            "salary": "from 2500",
+            "is_active": true,
+            "created_at": "2025-01-01T09:00:00Z",
+            "updated_at": "2025-01-01T09:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.vacancy",
+        "pk": 8,
+        "fields": {
+            "title": "Call Center Operator",
+            "description": "Call center operator needed. Responsibilities: call handling, customer consultations. Requirements: customer service experience.",
+            "requirements": "Customer service experience",
+            "salary": "from 3000",
+            "is_active": true,
+            "created_at": "2025-01-01T09:00:00Z",
+            "updated_at": "2025-01-01T09:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.vacancy",
+        "pk": 9,
+        "fields": {
+            "title": "Accountant",
+            "description": "Accountant needed. Responsibilities: accounting management. Requirements: higher education, 3 years experience.",
+            "requirements": "Higher education, 3 years experience",
+            "salary": "from 5000",
+            "is_active": true,
+            "created_at": "2025-01-01T09:00:00Z",
+            "updated_at": "2025-01-01T09:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.vacancy",
+        "pk": 10,
+        "fields": {
+            "title": "System Administrator",
+            "description": "System administrator needed. Responsibilities: parking IT infrastructure maintenance. Requirements: network equipment experience, Linux knowledge.",
+            "requirements": "Network equipment experience, Linux knowledge",
+            "salary": "from 5500",
+            "is_active": true,
+            "created_at": "2025-01-01T09:00:00Z",
+            "updated_at": "2025-01-01T09:00:00Z"
+        }
+    }
+] 

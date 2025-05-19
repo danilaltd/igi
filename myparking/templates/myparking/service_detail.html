@@ -1,0 +1,89 @@
+{% extends 'myparking/base_generic.html' %}
+
+{% block title %}{{ service.name }} - AutoCar{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'service-list' %}">Услуги</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'service-category-detail' service.category.pk %}">{{ service.category.name }}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ service.name }}</li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="card-title">{{ service.name }}</h1>
+                    <h6 class="card-subtitle mb-3 text-muted">{{ service.category.name }}</h6>
+
+                    <div class="mb-4">
+                        <h5>Описание</h5>
+                        <p class="card-text">{{ service.description }}</p>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Цена</h5>
+                            <p class="h3 text-primary">
+                                {% if applied_promo_code %}
+                                    <span class="text-decoration-line-through text-muted">{{ service.price }} BYN</span>
+                                    <span class="text-danger">{{ discounted_price }} BYN</span>
+                                    <small class="text-success">(Скидка {{ applied_promo_code.discount_percent }}%)</small>
+                                {% elif applied_coupon %}
+                                    <span class="text-decoration-line-through text-muted">{{ service.price }} BYN</span>
+                                    <span class="text-danger">{{ discounted_price }} BYN</span>
+                                    <small class="text-success">(Скидка {{ applied_coupon.discount_amount }} BYN)</small>
+                                {% else %}
+                                    {{ service.price }} BYN
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Длительность</h5>
+                            <p class="h3">{{ service.duration }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Промокоды и купоны -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Промокоды и купоны</h5>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="{% url 'service-apply-promo-code' service.pk %}" class="mb-3">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <input type="text" name="code" class="form-control" placeholder="Введите промокод">
+                                    <button type="submit" class="btn btn-outline-primary">Применить</button>
+                                </div>
+                            </form>
+                            <form method="post" action="{% url 'service-apply-coupon' service.pk %}">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <input type="text" name="code" class="form-control" placeholder="Введите купон">
+                                    <button type="submit" class="btn btn-outline-primary">Применить</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'service-list' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left"></i> Назад к списку
+                        </a>
+                        <form method="post" action="{% url 'order-service' service.pk %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i> Заказать услугу
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

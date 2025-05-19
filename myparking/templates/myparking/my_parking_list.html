@@ -1,0 +1,79 @@
+{% extends "myparking/base_generic.html" %}
+
+{% block title %}
+<title>Мои парковки</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Мои парковки</h1>
+    
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <div class="row">
+        {% for parking in parkings %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Парковка #{{ parking.id }}</h5>
+                    <p class="card-text">
+                        <strong>Статус:</strong> 
+                        {% if parking.is_busy %}
+                        <span class="badge bg-danger">Занято</span>
+                        {% else %}
+                        <span class="badge bg-success">Свободно</span>
+                        {% endif %}
+                    </p>
+                    <p class="card-text">
+                        <strong>Цена:</strong> {{ parking.price }} BYN
+                    </p>
+                    <p class="card-text">
+                        <strong>Дата аренды:</strong> {{ parking.date_of_rent|default:"Не арендовано" }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Владелец:</strong> {{ parking.user.username|default:"Нет владельца" }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Текущий пользователь:</strong> {{ request.user.username }}
+                    </p>
+                    <p class="card-text">
+                        <strong>is_busy:</strong> {{ parking.is_busy }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Машина на месте:</strong>
+                        {% if parking.parked_car %}
+                            {{ parking.parked_car.mark }} {{ parking.parked_car.model }} ({{ parking.parked_car.license_plate }})
+                            <form method="post" action="{% url 'set_parking_car' parking.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" name="remove_car" class="btn btn-danger btn-sm">Убрать машину</button>
+                            </form>
+                        {% else %}
+                            <form method="get" action="{% url 'set_parking_car' parking.id %}" style="display:inline;">
+                                <button type="submit" class="btn btn-primary btn-sm">Поставить машину</button>
+                            </form>
+                        {% endif %}
+                    </p>
+                    {% if parking.is_busy and parking.user == request.user %}
+                    <a href="{% url 'free_parking' parking.id %}" class="btn btn-warning">Освободить парковку</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                У вас пока нет арендованных парковок.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'myparking/base_generic.html' %}
+
+{% block title %}{{ category.name }} - AutoCar{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'service-category-list' %}">Категории услуг</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+                </ol>
+            </nav>
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h1 class="card-title">{{ category.name }}</h1>
+                    <p class="card-text">{{ category.description }}</p>
+                </div>
+            </div>
+
+            <h2 class="mb-4">Услуги в этой категории</h2>
+            <div class="row">
+                {% for service in services %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ service.name }}</h5>
+                                <p class="card-text">{{ service.description|truncatewords:30 }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 mb-0">{{ service.price }} BYN</span>
+                                    <a href="{% url 'service-detail' service.pk %}" class="btn btn-primary">
+                                        Подробнее
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> В этой категории пока нет услуг.
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

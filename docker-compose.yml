@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:igidbigidc@db.yscotcmpwdcmpaqgojki.supabase.co:5432/postgres
+      - DEBUG=1
+      - SECRET_KEY=django-insecure-!9^4@k7w#z$1v8r2&b6%q3l0*e5n7s!p@u^x1z2c4g8h5j0k
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=parking_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume: 

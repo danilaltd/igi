@@ -1,0 +1,40 @@
+{% extends "myparking/base_generic.html" %}
+
+{% block title %}
+<title>IP Адрес</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5 shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="text-center mb-0">
+                        <i class="fas fa-network-wired me-2"></i>IP Адрес
+                    </h2>
+                </div>
+                <div class="card-body">
+                    {% if error_message %}
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            {{ error_message }}
+                        </div>
+                    {% else %}
+                        <div class="text-center">
+                            <i class="fas fa-globe text-primary mb-3" style="font-size: 3rem;"></i>
+                            <p class="fs-4">Ваш IP адрес:</p>
+                            <p class="display-6 text-primary">{{ ip }}</p>
+                        </div>
+                        <div class="text-center mt-4">
+                            <a href="{% url 'get_ip' %}" class="btn btn-primary">
+                                <i class="fas fa-sync-alt me-2"></i>Обновить
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

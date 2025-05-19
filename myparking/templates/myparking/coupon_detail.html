@@ -1,0 +1,25 @@
+{% extends 'myparking/base_generic.html' %}
+
+{% block title %}Купон {{ coupon.code }} - AutoCar{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">Купон: {{ coupon.code }}</h1>
+                    <p class="card-text">Скидка: {{ coupon.discount_amount }} BYN</p>
+                    <p class="card-text">Период действия: {{ coupon.start_date|date:"d.m.Y" }} — {{ coupon.end_date|date:"d.m.Y" }}</p>
+                    <div class="card-text mt-4">
+                        {{ coupon.description|linebreaks }}
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <a href="{% url 'coupon-list' %}" class="btn btn-secondary">Назад к списку купонов</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

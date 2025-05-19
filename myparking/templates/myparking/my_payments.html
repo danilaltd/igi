@@ -1,0 +1,58 @@
+{% extends "myparking/base_generic.html" %}
+
+{% block title %}
+<title>Мои платежи</title>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2 class="text-center mb-0">Мои платежи</h2>
+    </div>
+    <div class="card-body">
+        {% if payments %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Парковка</th>
+                            <th>Сумма</th>
+                            <th>Дата</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payment in payments %}
+                            <tr>
+                                <td>{{ payment.park.number }}</td>
+                                <td>{{ payment.amount }}</td>
+                                <td>{{ payment.receipt_date|date:"d.m.Y" }}</td>
+                                <td>
+                                    {% if payment.is_paid %}
+                                        <span class="badge bg-success">Оплачен</span>
+                                    {% else %}
+                                        <span class="badge bg-warning">Ожидает оплаты</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if not payment.is_paid %}
+                                        <form method="post" action="{% url 'payment_paid' payment.id %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-primary btn-sm">Оплатить</button>
+                                        </form>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                У вас пока нет платежей.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,102 @@
+[
+    {
+        "model": "myparking.faq",
+        "pk": 1,
+        "fields": {
+            "question": "How to book a parking spot?",
+            "answer": "You can book a parking spot through our website or mobile app. You need to register and choose a convenient spot from available ones.",
+            "created_at": "2025-05-15T10:00:00Z",
+            "updated_at": "2025-05-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.faq",
+        "pk": 2,
+        "fields": {
+            "question": "What payment methods are available?",
+            "answer": "We accept cash, credit cards (Visa, MasterCard, MIR), and electronic wallets. Payment can be made one-time or by subscription.",
+            "created_at": "2025-05-15T10:00:00Z",
+            "updated_at": "2025-05-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.faq",
+        "pk": 3,
+        "fields": {
+            "question": "Are there discounts for regular customers?",
+            "answer": "Yes, we have a discount system for regular customers. A 15% discount is provided for monthly parking payment in advance. Special offers are also available on weekends.",
+            "created_at": "2025-05-15T10:00:00Z",
+            "updated_at": "2025-05-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.faq",
+        "pk": 4,
+        "fields": {
+            "question": "How does the video surveillance system work?",
+            "answer": "The parking lot is equipped with a modern video surveillance system that operates 24/7. Recordings are stored for 30 days. Access to recordings is provided upon request.",
+            "created_at": "2025-05-15T10:00:00Z",
+            "updated_at": "2025-05-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.faq",
+        "pk": 5,
+        "fields": {
+            "question": "Can I leave my car for a long period?",
+            "answer": "Yes, we provide long-term car storage service. Special rates and additional car maintenance services are available.",
+            "created_at": "2025-05-15T10:00:00Z",
+            "updated_at": "2025-05-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.faq",
+        "pk": 6,
+        "fields": {
+            "question": "What additional services are available?",
+            "answer": "We offer a wide range of additional services: car washing, electric vehicle charging, tire storage, body polishing, interior cleaning, and more.",
+            "created_at": "2025-05-15T10:00:00Z",
+            "updated_at": "2025-05-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.faq",
+        "pk": 7,
+        "fields": {
+            "question": "How does the parking access system work?",
+            "answer": "Parking access is granted through an electronic pass or mobile app. First-time visitors need to register at the reception.",
+            "created_at": "2025-05-15T10:00:00Z",
+            "updated_at": "2025-05-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.faq",
+        "pk": 8,
+        "fields": {
+            "question": "What to do in case of car damage?",
+            "answer": "If you discover any damage to your car, immediately report it to the parking administrator. We will conduct an investigation using the video surveillance system.",
+            "created_at": "2025-05-15T10:00:00Z",
+            "updated_at": "2025-05-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.faq",
+        "pk": 9,
+        "fields": {
+            "question": "Is there a car towing service?",
+            "answer": "Yes, we provide car towing service in case of breakdown. The service cost depends on the distance and car type.",
+            "created_at": "2025-05-15T10:00:00Z",
+            "updated_at": "2025-05-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.faq",
+        "pk": 10,
+        "fields": {
+            "question": "How to cancel a booking?",
+            "answer": "You can cancel a booking through the website or mobile app at least 2 hours before the parking start time. A penalty fee may be charged for late cancellation.",
+            "created_at": "2025-05-15T10:00:00Z",
+            "updated_at": "2025-05-15T10:00:00Z"
+        }
+    }
+] 

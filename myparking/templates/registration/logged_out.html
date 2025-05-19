@@ -1,0 +1,21 @@
+{% extends 'myparking/base_generic.html' %}
+
+{% block title %}Выход{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h2 class="card-title mb-4">Вы успешно вышли из системы</h2>
+                    <p class="mb-4">Спасибо за использование нашего сервиса!</p>
+                    <a href="{% url 'index' %}" class="btn btn-primary">
+                        <i class="fas fa-home me-2"></i>Вернуться на главную
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

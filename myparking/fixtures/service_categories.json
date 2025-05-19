@@ -1,0 +1,32 @@
+[
+    {
+        "model": "myparking.servicecategory",
+        "pk": 1,
+        "fields": {
+            "name": "Мойка",
+            "description": "Услуги по мойке автомобилей",
+            "created_at": "2024-01-01T09:00:00Z",
+            "updated_at": "2024-01-01T09:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.servicecategory",
+        "pk": 2,
+        "fields": {
+            "name": "Ремонт",
+            "description": "Услуги по ремонту автомобилей",
+            "created_at": "2024-01-01T09:00:00Z",
+            "updated_at": "2024-01-01T09:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.servicecategory",
+        "pk": 3,
+        "fields": {
+            "name": "Диагностика",
+            "description": "Услуги по диагностике автомобилей",
+            "created_at": "2024-01-01T09:00:00Z",
+            "updated_at": "2024-01-01T09:00:00Z"
+        }
+    }
+] 

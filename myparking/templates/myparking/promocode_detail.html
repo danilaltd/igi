@@ -1,0 +1,23 @@
+{% extends 'myparking/base_generic.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">Промокод: {{ promocode.code }}</h1>
+                    <p class="card-text">Скидка: {{ promocode.discount_percent }}%</p>
+                    <p class="card-text">Период действия: {{ promocode.start_date|date:"d.m.Y" }} — {{ promocode.end_date|date:"d.m.Y" }}</p>
+                    <div class="card-text mt-4">
+                        {{ promocode.description|linebreaks }}
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <a href="{% url 'promocode-list' %}" class="btn btn-secondary">Назад к списку промокодов</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

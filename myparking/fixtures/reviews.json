@@ -1,0 +1,102 @@
+[
+    {
+        "model": "myparking.review",
+        "pk": 1,
+        "fields": {
+            "user_id": 2,
+            "rating": 5,
+            "text": "Отличный сервис!",
+            "created_at": "2025-01-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.review",
+        "pk": 2,
+        "fields": {
+            "user_id": 2,
+            "rating": 4,
+            "text": "Хорошая парковка",
+            "created_at": "2025-01-02T11:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.review",
+        "pk": 3,
+        "fields": {
+            "user_id": 3,
+            "rating": 5,
+            "text": "Excellent management and customer service!",
+            "created_at": "2025-01-03T16:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.review",
+        "pk": 4,
+        "fields": {
+            "user_id": 3,
+            "rating": 5,
+            "text": "Very convenient parking! Good security, cleanliness, and lighting. Recommended!",
+            "created_at": "2025-01-04T10:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.review",
+        "pk": 5,
+        "fields": {
+            "user_id": 3,
+            "rating": 4,
+            "text": "Good parking, but prices are high. However, there are always spots available.",
+            "created_at": "2025-01-05T10:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.review",
+        "pk": 6,
+        "fields": {
+            "user_id": 2,
+            "rating": 5,
+            "text": "Очень удобное расположение и отличная охрана. Рекомендую!",
+            "created_at": "2025-01-06T14:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.review",
+        "pk": 7,
+        "fields": {
+            "user_id": 3,
+            "rating": 4,
+            "text": "Хорошая система бронирования мест. Удобное приложение.",
+            "created_at": "2025-01-07T09:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.review",
+        "pk": 8,
+        "fields": {
+            "user_id": 2,
+            "rating": 5,
+            "text": "Отличное обслуживание и чистые помещения. Спасибо!",
+            "created_at": "2025-01-08T16:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.review",
+        "pk": 9,
+        "fields": {
+            "user_id": 3,
+            "rating": 4,
+            "text": "Удобная система оплаты и хорошая охрана. Есть все необходимые услуги.",
+            "created_at": "2025-01-09T11:00:00Z"
+        }
+    },
+    {
+        "model": "myparking.review",
+        "pk": 10,
+        "fields": {
+            "user_id": 2,
+            "rating": 5,
+            "text": "Лучшая парковка в городе! Всегда есть места и отличный сервис.",
+            "created_at": "2025-01-10T13:00:00Z"
+        }
+    }
+] 

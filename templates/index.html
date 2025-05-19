@@ -1,0 +1,64 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+<title>Главная - Автостоянка</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-4 mb-4">Добро пожаловать в AutoCar</h1>
+            <p class="lead">Круглосуточная отапливаемая автостоянка с автоматизированной системой наблюдения</p>
+            
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Наши преимущества:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">✓ Гарантия безопасности вашего автомобиля</li>
+                        <li class="list-group-item">✓ Контроль всех выходов из комплекса</li>
+                        <li class="list-group-item">✓ Экономия времени на прогрев автомобиля</li>
+                        <li class="list-group-item">✓ Защита от природных погодных условий</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Для гостей</h5>
+                            <div class="d-grid gap-2">
+                                <a href="{% url 'parking_list' %}" class="btn btn-primary">Посмотреть парковки</a>
+                                <a href="{% url 'get_ip' %}" class="btn btn-info">Узнать IP сервера</a>
+                                <a href="{% url 'get_fact_about_cats' %}" class="btn btn-info">Интересный факт о котах</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Для пользователей</h5>
+                            {% if user.is_authenticated %}
+                                <div class="d-grid gap-2">
+                                    <a href="{% url 'my_parking_list' %}" class="btn btn-success">Мои парковки</a>
+                                    <a href="{% url 'my_cars' %}" class="btn btn-success">Мои автомобили</a>
+                                    <a href="{% url 'my_payments' %}" class="btn btn-success">Мои платежи</a>
+                                    <a href="{% url 'account_management' %}" class="btn btn-success">Управление счетом</a>
+                                </div>
+                            {% else %}
+                                <div class="d-grid gap-2">
+                                    <a href="{% url 'login' %}" class="btn btn-primary">Войти</a>
+                                    <a href="{% url 'register' %}" class="btn btn-success">Зарегистрироваться</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

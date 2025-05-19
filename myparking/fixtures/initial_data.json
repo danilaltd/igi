@@ -1,0 +1,132 @@
+[
+    {
+        "model": "myparking.parkingspot",
+        "pk": 1,
+        "fields": {
+            "number": 101,
+            "price": "100.00",
+            "currency": "BYN",
+            "is_busy": true,
+            "user": 1,
+            "date_of_rent": "2024-01-01",
+            "last_payment_date": "2024-01-01",
+            "next_payment_date": "2024-02-01",
+            "paid_months": 1
+        }
+    },
+    {
+        "model": "myparking.parkingspot",
+        "pk": 2,
+        "fields": {
+            "number": 102,
+            "price": "180.00",
+            "currency": "BYN",
+            "is_busy": false,
+            "user": null,
+            "date_of_rent": null,
+            "next_payment_date": null,
+            "paid_months": 0,
+            "last_payment_date": null
+        }
+    },
+    {
+        "model": "myparking.parkingspot",
+        "pk": 3,
+        "fields": {
+            "number": 103,
+            "price": "200.00",
+            "currency": "BYN",
+            "is_busy": false,
+            "user": null,
+            "date_of_rent": null,
+            "next_payment_date": null,
+            "paid_months": 0,
+            "last_payment_date": null
+        }
+    },
+    {
+        "model": "myparking.parkingspot",
+        "pk": 4,
+        "fields": {
+            "number": 104,
+            "price": "120.00",
+            "currency": "BYN",
+            "is_busy": false,
+            "user": null,
+            "date_of_rent": null,
+            "last_payment_date": null,
+            "next_payment_date": null,
+            "paid_months": 0
+        }
+    },
+    {
+        "model": "myparking.parkingspot",
+        "pk": 5,
+        "fields": {
+            "number": 105,
+            "price": "100.00",
+            "currency": "BYN",
+            "is_busy": false,
+            "user": null,
+            "date_of_rent": null,
+            "last_payment_date": null,
+            "next_payment_date": null,
+            "paid_months": 0
+        }
+    },
+    {
+        "model": "myparking.car",
+        "pk": 1,
+        "fields": {
+            "mark": "Toyota",
+            "model": "Camry",
+            "license_plate": "A123BC",
+            "owners": [2],
+            "parking_spot": null
+        }
+    },
+    {
+        "model": "myparking.car",
+        "pk": 2,
+        "fields": {
+            "mark": "Honda",
+            "model": "Civic",
+            "license_plate": "B456DE",
+            "owners": [2],
+            "parking_spot": null
+        }
+    },
+    {
+        "model": "myparking.car",
+        "pk": 3,
+        "fields": {
+            "mark": "BMW",
+            "model": "X5",
+            "license_plate": "C789FG",
+            "owners": [2],
+            "parking_spot": null
+        }
+    },
+    {
+        "model": "myparking.car",
+        "pk": 4,
+        "fields": {
+            "mark": "Mercedes-Benz",
+            "model": "C-Class",
+            "license_plate": "D012EF",
+            "owners": [3],
+            "parking_spot": null
+        }
+    },
+    {
+        "model": "myparking.car",
+        "pk": 5,
+        "fields": {
+            "mark": "Audi",
+            "model": "A6",
+            "license_plate": "E345GH",
+            "owners": [3],
+            "parking_spot": null
+        }
+    }
+] 

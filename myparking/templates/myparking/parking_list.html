@@ -1,0 +1,98 @@
+{% extends "myparking/base_generic.html" %}
+
+{% block title %}
+<title>Список парковок</title>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Список парковок</h2>
+            <a href="{% url 'my_parking_list' %}" class="btn btn-primary">Мои парковки</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <form method="get" class="row g-3">
+                    <div class="col-md-3">
+                        <label for="filter_busy" class="form-label">Статус</label>
+                        <select id="filter_busy" name="busy" class="form-select">
+                            <option value="" {% if request.GET.busy == '' %}selected{% endif %}>Все</option>
+                            <option value="busy" {% if request.GET.busy == 'busy' %}selected{% endif %}>Занято</option>
+                            <option value="free" {% if request.GET.busy == 'free' %}selected{% endif %}>Свободно</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filter_min_price" class="form-label">Мин. цена</label>
+                        <input type="number" class="form-control" id="filter_min_price" name="min_price" value="{{ request.GET.min_price }}" step="1">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filter_max_price" class="form-label">Макс. цена</label>
+                        <input type="number" class="form-control" id="filter_max_price" name="max_price" value="{{ request.GET.max_price }}" step="1">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">&nbsp;</label>
+                        <button type="submit" class="btn btn-primary w-100">Применить фильтры</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if parkings %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Номер места</th>
+                            <th>Цена/месяц</th>
+                            <th>Статус</th>
+                            <th>Владелец</th>
+                            <th>Оплачено месяцев</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for parking in parkings %}
+                            <tr>
+                                <td>{{ parking.number }}</td>
+                                <td>{{ parking.price }} BYN</td>
+                                <td>
+                                    {% if parking.is_busy %}
+                                    <span class="badge bg-danger">Занято</span>
+                                    {% else %}
+                                    <span class="badge bg-success">Свободно</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ parking.user.username|default:"Нет владельца" }}</td>
+                                <td>
+                                    {% if parking.is_busy %}
+                                        {{ parking.paid_months }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if not parking.is_busy %}
+                                        <form method="post" action="{% url 'rent_parking' parking.id %}" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-primary btn-sm">Арендовать</button>
+                                        </form>
+                                    {% elif parking.user == request.user %}
+                                        <a href="{% url 'free_parking' parking.id %}" class="btn btn-warning btn-sm">Освободить</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                Нет доступных парковочных мест.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

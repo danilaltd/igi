@@ -1,0 +1,72 @@
+{% extends 'myparking/base_generic.html' %}
+
+{% block title %}Часто задаваемые вопросы{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="card-title mb-4">Часто задаваемые вопросы</h1>
+                    
+                    {% if faq_list %}
+                        <div class="accordion" id="faqAccordion">
+                            {% for faq in faq_list %}
+                                <div class="accordion-item shadow-sm mb-3">
+                                    <h2 class="accordion-header" id="heading{{ faq.id }}">
+                                        <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" 
+                                                data-bs-toggle="collapse" data-bs-target="#collapse{{ faq.id }}" 
+                                                aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" 
+                                                aria-controls="collapse{{ faq.id }}">
+                                            <i class="fas fa-question-circle me-2 text-primary"></i>{{ faq.question }}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{ faq.id }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" 
+                                         aria-labelledby="heading{{ faq.id }}" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            {{ faq.answer|linebreaks }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> Часто задаваемых вопросов пока нет.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if is_paginated %}
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                    <i class="fas fa-chevron-left me-1"></i>Предыдущая
+                </a>
+            </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                    Следующая<i class="fas fa-chevron-right ms-1"></i>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %} 

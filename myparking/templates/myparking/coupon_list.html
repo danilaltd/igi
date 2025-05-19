@@ -1,0 +1,69 @@
+{% extends 'myparking/base_generic.html' %}
+
+{% block title %}Купоны - AutoCar{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% if coupons %}
+            {% for coupon in coupons %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ coupon.code }}</h5>
+                            <p class="card-text">{{ coupon.description }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success">{{ coupon.discount_amount }} BYN скидка</span>
+                                <small class="text-muted">
+                                    Действует до: {{ coupon.end_date|date:"d.m.Y" }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> Активных купонов пока нет.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Пагинация -->
+    {% if is_paginated %}
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+</div>
+{% endblock %} 
