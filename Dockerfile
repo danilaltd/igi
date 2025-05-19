@@ -32,14 +32,20 @@ set -e
 # Wait for database to be ready
 echo "Waiting for database..."
 while ! python manage.py check --database default 2>&1; do
-    sleep 1
+    echo "Database is not ready yet..."
+    sleep 2
 done
+
+echo "Database is ready!"
 
 # Make and apply migrations
 echo "Making migrations..."
 python manage.py makemigrations --no-input
 echo "Applying migrations..."
 python manage.py migrate --no-input
+
+# Wait a bit to ensure database is fully ready
+sleep 5
 
 # Load fixtures
 echo "Loading fixtures..."
