@@ -4,7 +4,7 @@
         "pk": 1,
         "fields": {
             "name": "AutoCar",
-            "logo": "company/logo.png",
+            "logo": "company/logo.jpeg",
             "history": "AutoCar was founded in 2010. Since then, we have grown from a small parking lot to a large network of parking facilities throughout the city. Our mission is to provide safe and comfortable car storage for our customers.",
             "requisites": "Tax ID: 1234567890\nRegistration Number: 0987654321\nLegal Address: 1 Example St., Minsk\nBank: Bank JSC\nBIC: 123456789\nAccount Number: 12345678901234567890",
             "email": "support@autocar.by",
