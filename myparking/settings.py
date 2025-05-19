@@ -12,6 +12,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# CSRF settings
+CSRF_TRUSTED_ORIGINS = ['*']
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',

@@ -27,9 +27,26 @@ RUN python manage.py collectstatic --noinput
 # Create entrypoint script
 COPY <<EOF /app/entrypoint.sh
 #!/bin/bash
+set -e
+
+# Wait for database to be ready
+echo "Waiting for database..."
+while ! python manage.py check --database default 2>&1; do
+    sleep 1
+done
+
+# Make and apply migrations
+echo "Making migrations..."
 python manage.py makemigrations --no-input
+echo "Applying migrations..."
 python manage.py migrate --no-input
+
+# Load fixtures
+echo "Loading fixtures..."
 python load_data.py
+
+# Start server
+echo "Starting server..."
 python manage.py runserver 0.0.0.0:80
 EOF
 
