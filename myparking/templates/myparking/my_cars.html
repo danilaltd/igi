@@ -24,6 +24,7 @@
                             <th>Марка</th>
                             <th>Модель</th>
                             <th>Номер</th>
+                            <th>Парковочное место</th>
                             <th>Действия</th>
                         </tr>
                     </thead>
@@ -33,6 +34,13 @@
                                 <td>{{ car.mark }}</td>
                                 <td>{{ car.model }}</td>
                                 <td>{{ car.license_plate }}</td>
+                                <td>
+                                    {% if car.parking_spot %}
+                                        Место №{{ car.parking_spot.number }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
                                 <td>
                                     <a href="{% url 'edit_car' car.id %}" class="btn btn-primary btn-sm">Редактировать</a>
                                     <form method="post" action="{% url 'delete_car' car.id %}" style="display: inline;">
