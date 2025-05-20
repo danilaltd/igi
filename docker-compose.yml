@@ -1,6 +1,6 @@
 services:
   web:
-    image: igi2024/myparking:latest
+    image: danilaltd/myparking:latest
     build: .
     ports:
       - "80:80"
